@@ -4,3 +4,9 @@ __pycache__/
 *.py[cod]
 /.final-audit/
 /.release-audit/
+
+# Local standalone hardware build outputs
+/chipyard/generators/rocket-chip/venv/
+/.hardware-build/
+
+/third_party/toolchains/*.download

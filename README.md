@@ -33,3 +33,7 @@ See [the evaluation guide](./EVALUATION_GUIDE.md) for the instructions.
 
 
 
+
+## WSL standalone CPU build
+
+See [HARDWARE_BUILD.md](HARDWARE_BUILD.md) for the verified build and smoke-test commands, restored dependency details, and optional LFS toolchain download.

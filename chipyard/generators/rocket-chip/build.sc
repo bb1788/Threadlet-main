@@ -117,6 +117,9 @@ trait RocketChip
 
   override def millSourcePath = super.millSourcePath / os.up
 
+  // Standalone Verilator only: preserve printf without FireSim annotations.
+  override def sources = T { super.sources() ++ Seq(PathRef(millSourcePath / "standalone" / "SynthesizePrintf.scala")) }
+
   def chiselModule = Option.when(crossValue == "source")(chisel)
 
   def chiselPluginJar = T(Option.when(crossValue == "source")(chisel.pluginModule.jar()))
@@ -327,7 +330,7 @@ trait Emulator extends Cross.Module2[String, String] {
 
     def elf = T.persistent {
       mill.util.Jvm.runSubprocess(Seq("cmake", "-G", "Ninja", "-S", cmakefileLists().path, "-B", T.dest.toString).map(_.toString), Map[String, String](), T.dest)
-      mill.util.Jvm.runSubprocess(Seq("ninja", "-C", T.dest).map(_.toString), Map[String, String](), T.dest)
+      mill.util.Jvm.runSubprocess(Seq("ninja", "-j", "2", "-C", T.dest).map(_.toString), Map[String, String](), T.dest)
       PathRef(T.dest / "emulator")
     }
   }

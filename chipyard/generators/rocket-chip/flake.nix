@@ -44,7 +44,10 @@
               export PYTHONPATH="$PIP_PREFIX/${pkgs.python3.sitePackages}:$PYTHONPATH"
               export PATH="$PIP_PREFIX/bin:$PATH"
               unset SOURCE_DATE_EPOCH
-              pip3 install importlib-metadata typing-extensions riscof==1.25.2 pexpect
+              # RISCOF is optional; simulator builds do not need Python packages.
+              if [ "''${THREADLET_INSTALL_RISCOF:-0}" = 1 ]; then
+                pip3 install importlib-metadata typing-extensions riscof==1.25.2 pexpect
+              fi
             '';
           };
         }
